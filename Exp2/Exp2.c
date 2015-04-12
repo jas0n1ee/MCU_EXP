@@ -125,7 +125,7 @@ void TMR0_IRQHandler(void) // Timer0 interrupt subroutine
 		{
 			key_pressed++;
 			//if (status) delay2(240000);
-			if (key_pressed==10)
+			if (key_pressed==15)
 			{
 				for(i=1;i<10;i++)
 					status=(keyboard[i]==1)?i:status;
@@ -199,7 +199,7 @@ int main (void)
 
  	while(1)
 	{
-		old_stauts=(status==4||status==6)?status:old_stauts;
+		old_stauts=(status==4||status==6||status==5)?status:old_stauts;
 		speed=(speed<16&&status==2)?speed*2:speed;
 		speed=(speed>1&&status==8)?speed/2:speed;
 		status=old_stauts;
@@ -245,6 +245,16 @@ int main (void)
 		 			delay2(1200000/speed);
 					DrvGPIO_SetBit(E_GPC,count);
 				}
+				break;
+			case 5:
+					status=0;
+					old_stauts=0;
+					speed=4;
+					SEG_DISP[0]=SEG_SGN[1];
+					SEG_DISP[1]=SEG_SGN[1];
+					SEG_DISP[2]=SEG_SGN[1];
+					SEG_DISP[3]=SEG_SGN[1];
+					break;
 		}
 	}
 }

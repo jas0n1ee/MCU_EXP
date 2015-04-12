@@ -26,9 +26,8 @@ loop1
  
 void EINT1Callback(void)
 {
-	i++;
-	delay1(10000);
-	if(i>=3) i=0;
+	delay2(120000);
+	if(DrvGPIO_GetBit(E_GPB,15)==0) i=(i==2)?0:i+1;
 }
 /*---------------------------------------------------------------*/
 /*   MAIN function                                               */
@@ -65,21 +64,21 @@ int main (void)
 
   while(1)
 	{
-    while (i==0)
+    if (i==0)
 		{
 			count=(count==12)?15:(count-1);
 			DrvGPIO_ClrBit(E_GPC,count);
  			delay2(1200000);
 			DrvGPIO_SetBit(E_GPC,count);
 		}
-		while(i==1)
+		if(i==1)
 		{
 			count=(count==15)?12:(count+1);
 			DrvGPIO_ClrBit(E_GPC,count);
  			delay2(1200000);
 			DrvGPIO_SetBit(E_GPC,count);
 		}
-		while(i==2)
+		if(i==2)
 		{
 			DrvGPIO_ClrBit(E_GPC,count);
  			delay2(1200000);
